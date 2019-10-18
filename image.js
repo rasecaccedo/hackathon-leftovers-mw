@@ -50,7 +50,7 @@ async function detectWeb(filePath, fileName, res, req) {
     res.status('200').send({
       faceGuessName: webDetection.webEntities[0].description,
       faceBoundingPoly: faces[0].boundingPoly,
-      image: `http://leftovers-hackaton.herokuapp.com/${fileName}`     
+      image: `http://leftovers-hackaton2.herokuapp.com/${fileName}`     
     });
   } else {
     res.status('404').send("No face detected");
@@ -108,7 +108,7 @@ router.get('/', async (req, res) => {
   try {
     exec(`ffmpeg -y -ss ${time} -i ${url} -vframes 1 -q:v 2 output.jpg`, async (err, stdout, stderr) => {
       if (!err) {
-        try {GOOGLE_APPLICATION_CREDENTIALS
+        try {
           await detectWeb(`./output.jpg`, `${id.substr(0, id.indexOf("."))}.png`, res, req);
         } catch (eror) {
           res.status('404').send("No face detected");

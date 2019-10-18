@@ -16,6 +16,7 @@
   "homepage": "https://bitbucket.org/cesarcruz/hackathon-leftovers-mw#readme",
   "devDependencies": {},
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "@google-cloud/vision": "^0.24.0"
   }
 }

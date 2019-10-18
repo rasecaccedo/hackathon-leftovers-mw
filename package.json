@@ -1,0 +1,16 @@
+{
+  "name": "leftovers",
+  "version": "1.0.0",
+  "description": "Accedo Madrid Hackathon Leftovers",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/cesarcruz/hackathon-leftovers-mw.git"
+  },
+  "author": "cesar, victor",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/cesarcruz/hackathon-leftovers-mw#readme"
+}

@@ -1,6 +1,8 @@
 
 const request = require("request");
 const express = require('express');
+const { exec } = require('child_process');
+
 const router = express.Router();
 
 
@@ -94,7 +96,19 @@ router.get('/', async (req, res) => {
     }
   } = req;
   res.setHeader('Content-Type', 'application/json');
-  await detectWeb(`./output_images/${url.substr(0, url.indexOf("."))}.png`, res);
+  try {
+    exec(`ffmpeg -y -ss ${time} -i ${url} -vframes 1 -q:v 2 output.jpg`, async (err, stdout, stderr) => {
+      if (!err) {
+        try {
+          await detectWeb(`./output.jpg`, res);
+        } catch (eror) {
+          res.status('404').send("No face detected");
+        }
+      }
+    });
+  } catch(error) {
+    console.log('ERROR');
+  }
 });
 
 module.exports = router;

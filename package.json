@@ -13,7 +13,8 @@
   "author": "cesar, victor",
   "license": "ISC",
   "homepage": "https://bitbucket.org/cesarcruz/hackathon-leftovers-mw#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "express": "^4.17.1"
   }
 }

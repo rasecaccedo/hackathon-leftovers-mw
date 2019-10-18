@@ -12,5 +12,8 @@
   },
   "author": "cesar, victor",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/cesarcruz/hackathon-leftovers-mw#readme"
+  "homepage": "https://bitbucket.org/cesarcruz/hackathon-leftovers-mw#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }

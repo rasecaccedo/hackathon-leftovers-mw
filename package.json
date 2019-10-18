@@ -18,6 +18,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "request": "^2.88.0",
-    "@google-cloud/vision": "^0.24.0"
+    "@google-cloud/vision": "^0.24.0",
+    "fs": "0.0.1-security"
   }
 }

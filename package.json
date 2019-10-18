@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Accedo Madrid Hackathon Leftovers",
   "main": "server.js",
-  "start": "node server.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "export GOOGLE_APPLICATION_CREDENTIALS=Leftovers-b7129b8811d2.json && node server.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,8 @@
   "devDependencies": {},
   "dependencies": {
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "@google-cloud/vision": "^0.24.0",
+    "fs": "0.0.1-security"
   }
 }

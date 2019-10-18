@@ -10,6 +10,8 @@ const router = express.Router();
 router.use('/audio', audio);
 router.use('/image', image);
 
+app.use(express.static('output_images'));
+
 app.use(router);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

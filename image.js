@@ -8,11 +8,11 @@ const router = express.Router();
 const vision = require('@google-cloud/vision');
 const client = new vision.ImageAnnotatorClient();
 
-async function detectWeb(fileName, res) {
-
-  const [result] = await client.webDetection(fileName);
+async function detectWeb(fileName, res, req) {
+  const filePath = `./output_images/${fileName}`;
+  const [result] = await client.webDetection(filePath);
   const webDetection = result.webDetection;
-  const [resultFaces] = await client.faceDetection(fileName);
+  const [resultFaces] = await client.faceDetection(filePath);
   console.log('FACES!!! ', resultFaces);
   const faces = resultFaces.faceAnnotations;
 
@@ -48,7 +48,8 @@ async function detectWeb(fileName, res) {
   if (faces.length === 1) {
     res.status('200').send({
       faceGuessName: webDetection.webEntities[0].description,
-      faceBoundingPoly: faces[0].boundingPoly      
+      faceBoundingPoly: faces[0].boundingPoly,
+      image: `http://leftovers-hackaton.herokuapp.com/${fileName}`     
     });
   } else {
     res.status('404').send("No face detected");
@@ -81,9 +82,17 @@ async function detectFaces(fileName) {
     console.log(`    Anger: ${face.angerLikelihood}`);
     console.log(`    Sorrow: ${face.sorrowLikelihood}`);
     console.log(`    Surprise: ${face.surpriseLikelihood}`);
+    //const dimensions = calculateDimensions(face.faceBoundingPoly.vertices);
   });
 
   return facesList;
+}
+
+calculateDimensions = (vertices) => {
+  const x = vertices[0].x;
+  const y = vertices[4].y;
+  const width = vertices[3].x - vertices[0].x;
+  const height = vertices[3].y - vertices[0].y; 
 }
 
 router.get('/', async (req, res) => {
@@ -94,7 +103,7 @@ router.get('/', async (req, res) => {
     }
   } = req;
   res.setHeader('Content-Type', 'application/json');
-  await detectWeb(`./output_images/${url.substr(0, url.indexOf("."))}.png`, res);
+  await detectWeb(`${url.substr(0, url.indexOf("."))}.png`, res, req);
 });
 
 module.exports = router;

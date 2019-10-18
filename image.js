@@ -113,10 +113,16 @@ router.get('/', async (req, res) => {
         } catch (eror) {
           res.status('404').send("No face detected");
         }
+      } else {
+        res.status('404').send("No face detected");
+        res.end();
+        return;
       }
     });
   } catch(error) {
     console.log('ERROR');
+    res.status('404').send("No face detected");
+    res.end();
   }
   
 });

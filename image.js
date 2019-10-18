@@ -82,7 +82,7 @@ async function detectFaces(fileName) {
     console.log(`    Anger: ${face.angerLikelihood}`);
     console.log(`    Sorrow: ${face.sorrowLikelihood}`);
     console.log(`    Surprise: ${face.surpriseLikelihood}`);
-    const dimensions = calculateDimensions(face.faceBoundingPoly.vertices);
+    //const dimensions = calculateDimensions(face.faceBoundingPoly.vertices);
   });
 
   return facesList;

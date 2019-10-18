@@ -12,22 +12,17 @@ async function detectWeb(fileName, res) {
 
   const [result] = await client.webDetection(fileName);
   const webDetection = result.webDetection;
-  console.log("JSON WEB: ", webDetection);
+  const [resultFaces] = await client.faceDetection(fileName);
+  console.log('FACES!!! ', resultFaces);
+  const faces = resultFaces.faceAnnotations;
+
+  console.log("Web Labels Detection: ", webDetection);
+  console.log("Faces Detection: ", faces.length);
   // if (webDetection.fullMatchingImages.length) {
   //   console.log(
   //     `Full matches found: ${webDetection.fullMatchingImages.length}`
   //   );
   //   webDetection.fullMatchingImages.forEach(image => {
-  //     console.log(`  URL: ${image.url}`);
-  //     console.log(`  Score: ${image.score}`);
-  //   });
-  // }
-
-  // if (webDetection.partialMatchingImages.length) {
-  //   console.log(
-  //     `Partial matches found: ${webDetection.partialMatchingImages.length}`
-  //   );
-  //   webDetection.partialMatchingImages.forEach(image => {
   //     console.log(`  URL: ${image.url}`);
   //     console.log(`  Score: ${image.score}`);
   //   });
@@ -49,12 +44,15 @@ async function detectWeb(fileName, res) {
       console.log(`  Label: ${label.label}`);
     });
   }
-
-
-  res.status('200').send({
-    //bestGuessLabels: "HOLA",
-    bestGuessLabels: webDetection.bestGuessLabels
-  });
+  
+  if (faces.length === 1) {
+    res.status('200').send({
+      faceGuessName: webDetection.webEntities[0].description,
+      faceBoundingPoly: faces[0].boundingPoly      
+    });
+  } else {
+    res.status('404').send("No face detected");
+  }
   res.end();
   // [END vision_web_detection]
 }
@@ -95,13 +93,8 @@ router.get('/', async (req, res) => {
       time
     }
   } = req;
-  const data = {
-    'return': 'timecode,spotify',
-    'api_token': '5f82a532c7df52bf55df47f34d1649f7'
-  };
-
   res.setHeader('Content-Type', 'application/json');
-  await detectWeb('./output_img.jpg', res);
+  await detectWeb(`./output_images/${url.substr(0, url.indexOf("."))}.png`, res);
 });
 
 module.exports = router;

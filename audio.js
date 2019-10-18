@@ -11,6 +11,19 @@ router.get('/', (req, res) => {
       time
     }
   } = req;
+
+  const bodyResponse = {
+    "artist": "Stealers Wheel 2",
+    "title": "Stuck In the Middle With You",
+    "album": "Reservoir Dogs(Original Motion Picture Soundtrack)",
+    "release_date": "2012-11-19",
+    "timecode": "00:34",
+    "image": "https://i.scdn.co/image/ab67616d0000b2733018918e2e12f471df5cd6f4"
+  };
+  res.setHeader('Content-Type', 'application/json');
+  res.status('200').send(bodyResponse);
+  res.end();
+  return;
   
   request({
     method: "POST",

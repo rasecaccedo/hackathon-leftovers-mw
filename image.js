@@ -108,20 +108,20 @@ router.get('/', async (req, res) => {
   try {
     exec(`ffmpeg -y -ss ${time} -i ${url} -vframes 1 -q:v 2 output.jpg`, async (err, stdout, stderr) => {
       if (!err) {
-        try {
+        try {GOOGLE_APPLICATION_CREDENTIALS
           await detectWeb(`./output.jpg`, `${id.substr(0, id.indexOf("."))}.png`, res, req);
         } catch (eror) {
           res.status('404').send("No face detected");
         }
       } else {
-        res.status('404').send("No face detected");
+        res.status('404').send(err);
         res.end();
         return;
       }
     });
   } catch(error) {
     console.log('ERROR');
-    res.status('404').send("No face detected");
+    res.status('404').send(error);
     res.end();
   }
   
